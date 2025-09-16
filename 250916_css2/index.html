@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>안녕하세요 [서희수]입니다</title>
+    <!-- favicon -->
+    <!-- og tag -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/./favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <meta property="og:title" content="성장하는 개발자 서희수입니다" />
+    <meta
+      property="og:description"
+      content="데이터 분석 경험을 바탕으로 안정적인 시스템을 고민합니다."
+    />
+    <meta
+      property="og:image"
+      content="https://i.postimg.cc/qv2wy06G/image.png"
+    />
+    <style>
+      /* 폰트 */
+      @font-face {
+        font-family: "YesMyungjo";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YESMyoungjo-Regular.woff")
+          format("woff");
+        font-weight: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "YesMyungjo";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YESMyoungjo-Bold.woff")
+          format("woff");
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2")
+          format("woff2");
+        font-weight: 100;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2")
+          format("woff2");
+        font-weight: 200;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2")
+          format("woff2");
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2")
+          format("woff2");
+        font-weight: 500;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2")
+          format("woff2");
+        font-weight: 600;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2")
+          format("woff2");
+        font-weight: 800;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2")
+          format("woff2");
+        font-weight: 900;
+        font-display: swap;
+      }
+
+      body {
+        font-family: "YesMyungjo";
+      }
+
+      .title {
+        font-family: "Paperozi";
+      }
+
+      /* 기본 전체 설정 */
+      * {
+        box-sizing: border-box;
+        /* 모든 box width, height를 우리 지정에 맞게 */
+      }
+
+      body {
+        margin: 0;
+        background-color: #647fbc;
+        color: #fafdd6; /* 기본 마진 */
+      }
+
+      .box {
+        background-color: #aed6cf;
+        padding: 12px;
+        border-radius: 12px;
+      }
+
+      body {
+        display: flex;
+        gap: 24px;
+        flex-direction: column;
+      }
+      body > section {
+        /* body에 바로 속한 section의 경우 해당 */
+        padding: 0 24px;
+        max-width: 480px;
+        margin: auto;
+        width: 100%;
+      }
+      /* 색상 설정 */
+      /* https://www.bairesdev.com/tools/ai-colors */
+      /* https://2colors.colorion.co/ */
+      /* https://colorhunt.co/ */
+      /* https://mobilepalette.colorion.co/ */
+
+      /* https://colorhunt.co/palette/3b02706f00ffe9b3fbfff1f1
+    - 전체 배경색 : #FFF1F1
+    - 박스색 : #6F00FF
+    - 컨텐츠색 : #3B0270
+    - 글자색 : #E9B3FB */
+
+      #intro {
+        padding: 24px;
+      }
+      #intro .title {
+        text-align: center;
+      }
+
+      #intro div {
+        line-height: 2;
+      }
+
+      #tech-stack ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      #tech-stack li {
+        list-style: none;
+        width: 128px;
+        aspect-ratio: 1;
+        background-color: #91adc8;
+        border-radius: 8px;
+        border: 1px transparent solid;
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #tech-stack img {
+        width: 80%;
+        padding: 8px;
+        background-color: white;
+        border-radius: 50%;
+      }
+
+      #portfoilio > h2 {
+        margin-bottom: 0;
+      }
+
+      #portfoilio .item {
+        background-color: #91adc8;
+        width: 100%;
+        height: 160px;
+        border-radius: 8px;
+        border: 1px #fff1f1 solid;
+        padding: 0 16px;
+      }
+
+      #portfoilio .box {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      /* 레이아웃 : 박스모델, 플렉스 */
+    </style>
+  </head>
+  <body>
+    <section id="intro">
+      <h1 class="title">
+        반갑습니다<br />
+        성장하는 백엔드 개발자<br />
+        [서희수]입니다
+      </h1>
+      <section class="box">
+        <div>
+          사용자에게 더 나은 가치를 제공하기 위해,
+          <strong>안정적이고 확장 가능한 시스템</strong>을 구축하는 것에 깊은
+          흥미를 느낍니다. 새로운 기술을 배우고 적용하며 꾸준히 성장하는
+          개발자가 되겠습니다.
+        </div>
+      </section>
+    </section>
+
+    <section id="tech-stack">
+      <section class="box">
+        <h2>기술 스택</h2>
+        <ul>
+          <li><img src="icons8-java-48.png" /></li>
+          <li><img src="icons8-spring-boot-48.png" /></li>
+          <li><img src="icons8-mysql-50.png" /></li>
+          <li><img src="icons8-aws-50.png" /></li>
+          <li><img src="icons8-github-50.png" /></li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- flex 기반 레이아웃. svg repo. -->
+    <!-- 기술 스택 (부트캠프) -->
+
+    <!-- 포트폴리오 (3종) -->
+    <section id="portfoilio">
+      <section class="box">
+        <h2>포트폴리오</h2>
+        <div class="item">
+          <h3>여행 추천 프로젝트</h3>
+          <p>
+            사용자 맞춤형 여행지를 추천하는 API 서버를 개발했습니다. Spring
+            Boot를 기반으로 RESTful API를 설계하고, MySQL을 사용하여 여행지
+            데이터를 효율적으로 관리했습니다.
+          </p>
+        </div>
+        <div class="item">
+          <h3>재능 매칭 프로젝트</h3>
+          <p>
+            재능을 가진 사용자와 재능이 필요한 사용자를 연결하는 매칭 플랫폼을
+            개발했습니다. Spring Security를 활용하여 정교한 매칭 알고리즘을
+            설계했습니다.
+          </p>
+        </div>
+        <div class="item">
+          <h3>AWS 인프라 프로젝트</h3>
+          <p>
+            개발한 웹 애플리케이션을 AWS 클라우드 환경에 배포하고 안정적으로
+            운영하기 위한 인프라를 구축했습니다. RDS를 통해 데이터베이스를
+            관리하여 안정성을 확보했습니다.
+          </p>
+        </div>
+      </section>
+    </section>
+  </body>
+</html>
