@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>요소 선택</title>
+  </head>
+  <body>
+    <header>안녕하세요!</header>
+    <section>
+      메인 내용
+      <div id="item2"></div>
+      <div id="item1">
+        <div class="text">설명</div>
+        <div class="text">설명</div>
+        <div class="text">설명</div>
+        <div class="text">설명</div>
+      </div>
+    </section>
+    <footer>2025 프로그래머스</footer>
+    <script>
+      // document <- 이미 사용하고 있는 객체.
+      // query (질문, 질의 -> 검색어)
+      // Selector -> CSS Selecor -> 태그, #(id), .(class)
+      // document.querySelector -> 변수 담아주거나 직접적인 조작
+      const header = document.querySelector("header");
+      // header 태그를 사용해서 만들어진 요소 중 '첫번째'로 찾아지는 (위로부터 아래로 찾았을 때)
+      console.log(header); // node. 단말.
+      console.log(document.querySelector("footer"));
+      console.log(document.querySelector("footer").innerHTML);
+      console.log(document.querySelector("footer").innerText);
+      console.log(document.querySelector("section"));
+      console.log(document.querySelector("section").innerHTML);
+      console.log(document.querySelector("section").innerText);
+      console.log(document.querySelector("div"));
+      console.log(document.querySelector("#item1"));
+      console.log(document.querySelectorAll("div")); // Array.
+      console.log(document.querySelectorAll(".text")); // Array.
+      // 구 문법 (작동은 하는데...?)
+      const item1 = document.getElementById("item1");
+      const text = document.getElementsByClassName("text");
+      console.log(item1, text);
+    </script>
+  </body>
+</html>
