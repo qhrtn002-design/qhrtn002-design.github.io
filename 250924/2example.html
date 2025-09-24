@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>초간단 To-Do</title>
+  </head>
+  <body>
+    <input id="item-input" placeholder="내용 입력" />
+    <button id="add-btn">추가</button>
+    <div id="item-list"></div>
+
+    <script>
+      // 1. 필요한 요소 3개 가져오기
+      const input = document.querySelector("#item-input");
+      const addButton = document.querySelector("#add-btn");
+      const list = document.querySelector("#item-list");
+
+      // 2. '추가' 버튼 클릭 시 실행할 함수 연결
+      addButton.addEventListener("click", () => {
+        const itemText = input.value; // 입력값 가져오기
+
+        // 내용이 없으면 아무것도 안 함
+        if (itemText === "") return;
+
+        // 3. 'div' 요소를 새로 만듦
+        const newItem = document.createElement("div");
+        newItem.textContent = itemText; // 새 요소에 입력값 넣기
+
+        // 4. 새로 만든 요소를 클릭하면 스스로 삭제되는 이벤트 추가
+        newItem.addEventListener("click", () => {
+          newItem.remove();
+        });
+
+        // 5. 화면에 보이는 리스트에 새 요소 추가
+        list.append(newItem);
+
+        // 6. 입력창 비우기
+        input.value = "";
+      });
+    </script>
+  </body>
+</html>
