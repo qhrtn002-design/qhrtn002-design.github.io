@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="user">
+      이름 : <input type="text" name="name" /><br />
+      나이 : <input type="text" name="age" /><br />
+      <button>제출</button>
+    </form>
+    <script>
+      const userForm = document.querySelector("#user");
+      const users = []; // !!!!
+      userForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(userForm);
+        const user = {
+          name: formData.get("name"),
+          // 숫자
+          age: Number(formData.get("age")), // Number -> 숫자로 변경
+        };
+        console.log(user);
+        users.push(user); // !!!!
+        console.log(users); // !!!!
+        // localStorage.setItem("user", user); // [object Object]
+        // 객체 -> 직렬화.
+        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("users", users); // [object Object]
+        localStorage.setItem("users", JSON.stringify(users)); // !!!!
+      });
+      const user = localStorage.getItem("user");
+      if (user) {
+        const userObj = JSON.parse(user); // {"name":"김자바","age":100}
+        // JSON 문자열을 -> 자바스크립트 객체로 '파싱'한다 (해석)한다
+        console.log(userObj);
+        console.log(JSON.parse(localStorage.getItem("users")));
+      }
+    </script>
+  </body>
+</html>
