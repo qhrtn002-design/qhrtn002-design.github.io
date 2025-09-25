@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메모 앱</title>
+    <style>
+      .memo {
+        margin: 12px;
+        border: 1px solid gray;
+      }
+      .done {
+        background-color: silver;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="memoForm">
+      <!-- name vs id -->
+      <!-- name : form -> FormData, id : querySelector -> value -->
+      <input
+        type="text"
+        name="memoTitle"
+        placeholder="메모 제목을 입력하세요"
+      /><br />
+      <!-- input 확장 버전 -> 여러줄로 되어 있는 text input -->
+      <textarea
+        name="memoContent"
+        placeholder="메모 내용을 입력하세요"
+      ></textarea
+      ><br />
+      <button>추가</button>
+      <!-- 폼 내부 배치를 br 줄바꿈할지, div로 하나하나 블록으로 나눠줄지, flex 바꿀지는 여러분들 선택 -->
+    </form>
+    <!-- 전체 삭제 -->
+    <section>
+      <button id="clearBtn">전체 삭제</button>
+    </section>
+    <!-- section#memoBox -> 하위 요소로 .memo div 요소들을 추가할 예정 -->
+    <section id="memoBox"></section>
+    <script>
+      // 1. localStorage -> 데이터를 넣고 -> 불러오는.
+      //   const memoForm = document.querySelector("memoForm"); // null -> 잘못된 선택자 입력
+      const memoForm = document.querySelector("#memoForm");
+      console.log(memoForm);
+      // addEventListner(이벤트명, 이벤트핸들러)
+      // "click" -> button일 때임. form일 땐 submit임!!!
+      memoForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // 기본 HTML 이벤트 작동을 방지
+        // memoForm == event.currentTarget
+        const formData = new FormData(event.currentTarget);
+        console.log(formData);
+        // Iterator -> 유사 Array -> ...
+        console.log(...formData.entries()); // rest 연산자로 분해 가능
+        const memo = {
+          // 삭제 시 사용할 겹치지 않을 ID
+          id: Date.now(), // 현재 시간 기반의 숫자값(millisecond, utc)
+          title: formData.get("memoTitle"),
+          content: formData.get("memoContent"),
+          done: false,
+        };
+        console.log(memo);
+        // List -> 여러개의 데이터 묶음. (가변적인 길이)
+        const rawMemoList = localStorage.getItem("memoList");
+        const memoList = [];
+        if (rawMemoList) {
+          // truthy하다
+          // 텍스트 형태로 저장이 되어 있음.
+          console.log("저장된 메모 존재");
+          // parse -> 텍스트 -> 메모리에서 사용할 수 있는 형태로 변경
+          // 배열 상태에 있는 데이터를 분해해서 개별 요소로 하나씩 추가
+          memoList.push(...JSON.parse(rawMemoList));
+        }
+        memoList.push(memo);
+        localStorage.setItem("memoList", JSON.stringify(memoList));
+        // 새롭게 데이터가 추가 되었을 때...
+        render();
+      });
+      // 2. function. -> 로드 -> dom -> localStorage -> 그려주고, 데이터 추가 변경 -> 갱신.
+      // memo 속할 상위 요소 -> append
+      const memoBox = document.querySelector("#memoBox");
+      function render() {
+        const rawMemoList = localStorage.getItem("memoList");
+        memoBox.innerHTML = ""; // 비우는 걸 먼저 해줘야함 (삭제 시 대응)
+        if (!rawMemoList) {
+          return; // 렌더링할게 없는 것
+          // 함수니까 여기서 끝내버리면 되고...
+        }
+        const memoList = JSON.parse(rawMemoList);
+        for (const m of memoList) {
+          const memo = document.createElement("div");
+          memo.classList.add("memo");
+          if (m.done) {
+            memo.classList.add("done");
+          }
+          memo.innerHTML = `
+            <h3>${m.title}</h3>
+            <p>${m.content}</p>
+            <p>${m.done ? "O" : "X"}</p>
+          `;
+          const removeBtn = document.createElement("button");
+          // 이것만하면 데이터를 지운게 아니라, '화면만 지운 것'
+          removeBtn.textContent = "삭제";
+          removeBtn.addEventListener("click", () => {
+            // 임시저장을 시키고...
+            const filtered = memoList.filter((v) => v.id !== m.id);
+            // memoList.length = 0; // 비게 만든 다음에...
+            // memoList.push(...filtered); // 순서는 유지하면서 filter로 제거하고자하는 특정 요소만 제거한 채로 재추가
+            console.log(filtered);
+            localStorage.setItem("memoList", JSON.stringify(filtered));
+            // memo.remove(); // 화면에서만 제거 // 개별로 화면에서 제거
+            render(); // 전체적으로 리렌더링을 하거나...
+          });
+          // memo click하면 수행 처리
+          // 3. 활성/비활성
+          // dblclick -> 내부 버튼과 겹침 문제로 더블 클릭으로 수정
+          memo.addEventListener("dblclick", () => {
+            const newMemo = {
+              ...m,
+              done: !m.done,
+            };
+            const mapped = memoList.map((v) => {
+              if (v.id !== m.id) {
+                return v;
+              } else {
+                return newMemo;
+              }
+            });
+            localStorage.setItem("memoList", JSON.stringify(mapped));
+            // memo.classList.toggle("done");
+            render(); // O/X 처리도 별도로 해주던가 아니면 re render.
+          });
+          // 클립보드 복사
+          const copyBtn = document.createElement("button");
+          copyBtn.textContent = "복사";
+          copyBtn.addEventListener("click", () => {
+            // \n : 줄바꿈
+            navigator.clipboard.writeText(
+              `제목: ${m.title}\n내용: ${m.content}\n완료 여부 : ${m.done}`
+            );
+          });
+          memo.append(copyBtn);
+          memo.append(removeBtn);
+          memoBox.append(memo);
+        }
+      }
+      // 전체 삭제
+      document.querySelector("#clearBtn").addEventListener("click", () => {
+        // localStorage.clear(); // 주소 기반 -> 현재 주소와 연관된 localStorage 모두 삭제
+        localStorage.removeItem("memoList"); // 특정한 키만 삭제
+        render();
+      });
+
+      // 전체 로딩이 끝났을 때
+      document.addEventListener("DOMContentLoaded", render);
+    </script>
+  </body>
+</html>
