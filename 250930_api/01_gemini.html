@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini API</title>
+  </head>
+  <body>
+    <section>
+      <label>API KEY : <input type="text" id="apiKey" /></label><br />
+      <label
+        >Gemini Model :
+        <select id="geminiModel">
+          <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+          <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+          <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash Lite</option>
+        </select> </label
+      ><br />
+      <label>질문 : <input id="question" /></label><br />
+      <button id="callBtn">호출</button>
+    </section>
+    <script>
+      // 1. input에서 api key를 읽어들여오고 callBtn 이벤트 리스너
+      const apiKeyInput = document.querySelector("#apiKey");
+      const callBtn = document.querySelector("#callBtn");
+      const geminiModelInput = document.querySelector("#geminiModel");
+      const questionInput = document.querySelector("#question");
+      callBtn.addEventListener("click", async () => {
+        const apiKey = apiKeyInput.value; // 처음부터 value로 하면 되지 않나요?
+        // value -> 문자열 -> '값'이 할당이 된다 -> 처음부터 외부에 콜백 전에 복사해놓으면 '빈 값'이 복사되어 있음
+        console.log(apiKey);
+        // 3. input에서 데이터 받기
+        const geminiModel = geminiModelInput.value;
+        const question = questionInput.value;
+        // url
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`; // models/{모델명}:{기능명}
+        console.log(geminiModel, url);
+        // payload
+        const payload = {
+          contents: [
+            {
+              // parts: [{ text: "오늘 점심 뭐 먹지?" }],
+              parts: [{ text: question }],
+            },
+          ],
+        };
+        // 2. 외부 API로 요청 전달
+        const response = await fetch(url, {
+          // method: "GET", // Form -> GET, POST...
+          // GET -> 주소에 필요한 데이터를 담아서 전달하는 방식
+          method: "POST", // Body -> Payload(데이터) -> 보안적
+          headers: {
+            // 보안, 메타 데이터
+            "x-goog-api-key": apiKey,
+            "Content-Type": "application/json",
+          },
+          // https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch
+          // 직렬화된 문자열
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+        console.log(data);
+        console.log(data.candidates[0].content.parts[0].text);
+      });
+    </script>
+  </body>
+</html>
