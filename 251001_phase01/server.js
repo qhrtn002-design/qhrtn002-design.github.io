@@ -17,6 +17,8 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
+app.use(express.json());
+
 
 app.get("/", (req, res) => {
   res.send("bye");
@@ -29,6 +31,15 @@ app.get("/plans", async (req, res) => {
   }
   res.json(data);
 });
+
+app.post("/plans", async (req, res) => {
+    const plan = req.body;
+    const {error} = await supabase.from("tour_plan").insert(plan);
+    if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+  res.status(201).json();
+  })
 
 app.listen(port, () => {
   console.log(`서버가 ${port}번 포트로 실행 중입니다.`);
