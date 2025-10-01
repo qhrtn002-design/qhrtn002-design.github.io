@@ -37,8 +37,10 @@
       const planForm = document.querySelector("#planForm");
       // 함수
       async function renderPlans() {
-        const url = "http://localhost:3000/plans";
-        const response = await fetch(url);
+        // const url = "http://localhost:3000/plans";
+        // const response = await fetch(url);
+        const url = "https://two51001-phase01.onrender.com";
+        const response = await fetch(`${url}/plans`);
         const data = await response.json();
         console.log(data);
         planBox.innerHTML = "";
@@ -51,14 +53,17 @@
             <div>[시작일] ${p.start_date}</div>
             <div>[종료일] ${p.end_date}</div>
             <div>[추천계획] ${p.ai_suggestion}</div>
+            <div>[최소예산] ${p.ai_min_budget}</div>
+            <div>[최대예산] ${p.ai_max_budget}</div>
           `;
           const removeBtn = document.createElement("button");
           removeBtn.textContent = "삭제";
           removeBtn.addEventListener("click", async () => {
             // const planId = p.id;
             const { id: planId } = p;
-            const url = "http://localhost:3000/plans";
-            const response = await fetch(url, {
+            const url = "https://two51001-phase01.onrender.com";
+            // const url = "http://localhost:3000/plans";
+            const response = await fetch(`${url}/plans`, {
               method: "DELETE", // #1
               headers: {
                 "Content-Type": "application/json", // #2
@@ -84,8 +89,9 @@
         // fromEntries -> 객체화
         const planObj = Object.fromEntries(formData.entries());
         console.log(planObj);
-        const url = "http://localhost:3000/plans";
-        const response = await fetch(url, {
+        const url = "https://two51001-phase01.onrender.com";
+        // const url = "http://localhost:3000/plans";
+        const response = await fetch(`${url}/plans`, {
           method: "POST", // #1
           headers: {
             "Content-Type": "application/json", // #2
